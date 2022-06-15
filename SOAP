@@ -1,0 +1,29 @@
+package soapp;
+
+public interface Names {
+	public void setName(String name);
+	public String getName();
+	public int getAge();
+}
+
+package soapp;
+
+public class DisplayName implements Names {
+	private String name = "null";
+	
+	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	@Override
+	public String getName() {
+		return name;
+	}
+	
+	@Override
+	public int getAge() {
+		return 20;
+	}
+
+}
