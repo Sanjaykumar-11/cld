@@ -1,29 +1,114 @@
-package soapp;
+Person.java:
 
-public interface Names {
-	public void setName(String name);
-	public String getName();
-	public int getAge();
-}
 
-package soapp;
+package pack1;
 
-public class DisplayName implements Names {
-	private String name = "null";
+import java.io.Serializable;
+
+public class Person implements Serializable{
+
+	private static final long serialVersionUID = -5577579081118070434L;
 	
-	@Override
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	@Override
+	private String name;
+	private int age;
+	private int id;
+
 	public String getName() {
 		return name;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	@Override
-	public int getAge() {
-		return 20;
+	public String toString(){
+		return id+"::"+name+"::"+age;
+	}
+
+}
+
+
+PersonSevice:
+
+
+package pack2;
+import pack1.Person;
+
+public interface PersonService {
+
+	public boolean addPerson(Person p);
+	
+	public boolean deletePerson(int id);
+	
+	public Person getPerson(int id);
+	
+	public Person[] getAllPersons();
+}
+
+
+PersonServiceImpl:
+
+
+
+
+package pack2;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+import pack1.Person;
+
+public class PersonServiceImpl implements PersonService {
+
+	private static Map<Integer,Person> persons = new HashMap<Integer,Person>();
+	
+	@Override
+	public boolean addPerson(Person p) {
+		if(persons.get(p.getId()) != null) return false;
+		persons.put(p.getId(), p);
+		return true;
+	}
+
+	@Override
+	public boolean deletePerson(int id) {
+		if(persons.get(id) == null) return false;
+		persons.remove(id);
+		return true;
+	}
+
+	@Override
+	public Person getPerson(int id) {
+		return persons.get(id);
+	}
+
+	@Override
+	public Person[] getAllPersons() {
+		Set<Integer> ids = persons.keySet();
+		Person[] p = new Person[ids.size()];
+		int i=0;
+		for(Integer id : ids){
+			p[i] = persons.get(id);
+			i++;
+		}
+		return p;
 	}
 
 }
