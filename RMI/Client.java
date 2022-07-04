@@ -21,8 +21,10 @@ public class Client{
                 System.out.println("Credit");
                 credits[i] = input.nextInt();
             }
-
+            long start = System.currentTimeMillis();
             System.out.println("Your GPA is: "+stub.CalGPA(marks, credits, num_of_subject));
+            long end = System.currentTimeMillis();
+            System.out.println("Time taken:"+(end-start));
             input.close();
         }
         catch(Exception e){}{

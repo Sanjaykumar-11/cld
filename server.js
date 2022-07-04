@@ -55,7 +55,8 @@ app.delete('/remove_team',(req, res)=>{
             break;
         }
     }
-    teams.splice(team,1);
+    ind = teams.indexOf(team);
+    teams.splice(ind,1);
     res.send(teams);
 })
 
@@ -77,12 +78,13 @@ app.put('/update_teamname', (req, res)=>{
 
 //POST
 app.post('/team_members', (req, res)=>{
-    const id = req.query.id;
+    const id = req.body.id;
+    var team;
     for(let i=0; i<teams.length; i++)
     {
         if(teams[i].team_id == id)
         {
-            var team = teams[i];
+            team = teams[i];
             break;
         }
     }
